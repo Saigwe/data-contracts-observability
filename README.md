@@ -45,6 +45,10 @@ python -m observability.run
 pytest
 ```
 
+## Walkthrough
+
+- [ ] 3-minute Loom walkthrough ([script ready](docs/walkthrough.md))
+
 ## Stack
 
 Python, YAML contracts, OpenLineage event format, Mermaid lineage, pytest.
