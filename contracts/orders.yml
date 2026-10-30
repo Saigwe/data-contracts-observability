@@ -1,0 +1,13 @@
+dataset: raw.orders
+owner: checkout-team
+consumers_notified: [analytics-engineering]
+freshness_sla_hours: 6
+volume:
+  method: robust_zscore   # compared with the trailing 14 daily loads
+  max_abs_z: 4
+schema:
+  order_id:     {type: string,  required: true, unique: true}
+  customer_id:  {type: string,  required: true, max_null_pct: 0.5}
+  order_ts:     {type: timestamp, required: true}
+  status:       {type: string,  required: true, allowed: [placed, paid, shipped, cancelled, refunded]}
+  amount_gbp:   {type: number,  required: true, min: 0, max: 20000}

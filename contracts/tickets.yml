@@ -1,0 +1,11 @@
+﻿dataset: raw.tickets
+owner: support-tools
+consumers_notified: [analytics-engineering]
+freshness_sla_hours: 6
+volume:
+  method: robust_zscore
+  max_abs_z: 4
+schema:
+  ticket_id:    {type: string, required: true, unique: true}
+  priority:     {type: string, required: true, allowed: [low, medium, high]}
+  created_ts:   {type: timestamp, required: true}

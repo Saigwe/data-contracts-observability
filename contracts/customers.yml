@@ -1,0 +1,12 @@
+dataset: raw.customers
+owner: crm-team
+consumers_notified: [analytics-engineering]
+freshness_sla_hours: 24
+volume:
+  method: robust_zscore
+  max_abs_z: 5
+schema:
+  customer_id:  {type: string, required: true, unique: true}
+  country:      {type: string, required: true, allowed: [UK, IE, PT, ES, DE]}
+  segment:      {type: string, required: true, allowed: [consumer, business]}
+  created_ts:   {type: timestamp, required: true}

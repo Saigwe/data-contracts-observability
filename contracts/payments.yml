@@ -1,0 +1,13 @@
+dataset: raw.payments
+owner: payments-platform
+consumers_notified: [analytics-engineering, finance-data]
+freshness_sla_hours: 6
+volume:
+  method: robust_zscore
+  max_abs_z: 4
+schema:
+  payment_id:   {type: string, required: true, unique: true}
+  order_id:     {type: string, required: true}
+  method:       {type: string, required: true, allowed: [card, paypal, apple_pay, bank_transfer]}
+  amount_gbp:   {type: number, required: true, min: 0, max: 20000}
+  captured_ts:  {type: timestamp, required: true}

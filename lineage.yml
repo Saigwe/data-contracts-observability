@@ -1,0 +1,17 @@
+﻿# Datasets, models and the dashboards (exposures) that depend on them.
+nodes:
+  raw.orders:            {type: source}
+  raw.payments:          {type: source}
+  raw.customers:         {type: source}
+  raw.tickets:           {type: source}
+  stg_orders:            {type: model, upstream: [raw.orders]}
+  stg_payments:          {type: model, upstream: [raw.payments]}
+  stg_customers:         {type: model, upstream: [raw.customers]}
+  stg_tickets:           {type: model, upstream: [raw.tickets]}
+  fct_orders:            {type: model, upstream: [stg_orders, stg_payments]}
+  dim_customers:         {type: model, upstream: [stg_customers]}
+  fct_revenue_daily:     {type: model, upstream: [fct_orders, dim_customers]}
+  Executive revenue dashboard:   {type: exposure, upstream: [fct_revenue_daily], owner: CFO office, tier: 1}
+  Finance month-end reconciliation: {type: exposure, upstream: [fct_orders], owner: Finance, tier: 1}
+  Customer segmentation report:  {type: exposure, upstream: [dim_customers], owner: Marketing, tier: 2}
+  Support SLA dashboard:         {type: exposure, upstream: [stg_tickets], owner: Operations, tier: 2}
